@@ -1,0 +1,58 @@
+{
+  "theme": {
+    "defaultTheme": "dark",
+    "fonts": {
+      "heading": "Outfit",
+      "body": "Poppins"
+    },
+    "palette": {
+      "primary": "#4f46e5",
+      "accent": "#62E647",
+      "surface": "#090d16"
+    }
+  },
+  "hero": {
+    "subtitle": "Native Mobile Experience",
+    "title": "Organize your life with effortless speed.",
+    "mainText": "Crafted with clean native interactions, instant sync, and zero distractions. Built to elevate how you work every single day.",
+    "screenshot": "images/screenshot_1.png"
+  },
+  "stores": {
+    "heading": "Download for iOS & Android",
+    "showBadges": true,
+    "appStore": {
+      "url": "https://apple.com",
+      "badge": "images/app-store-badge.png"
+    },
+    "googlePlay": {
+      "url": "https://google.com",
+      "badge": "images/google-play-badge.png"
+    }
+  },
+  "sections": [
+    {
+      "headline": "Real-time sync across all your devices",
+      "text": "Your notes, tasks, and habits stay in perfect synchronization. Cloud-first architecture ensures instant availability everywhere you go.",
+      "image": "images/screenshot_1.png",
+      "url": "https://example.com/sync",
+      "cardGlow": true
+    },
+    {
+      "headline": "Distraction-free clarity with thoughtful design",
+      "text": "Every pixel is placed with intention. Enjoy high-contrast legibility, calm color tones, and tactile responsive controls that respect your focus.",
+      "image": "images/screenshot_1.png",
+      "url": "https://example.com/design",
+      "cardGlow": true
+    },
+    {
+      "headline": "Offline-ready with robust local persistence",
+      "text": "Stay productive even without an active internet connection. Work uninterrupted on planes, subways, or remote spots with instant local caching.",
+      "image": "images/screenshot_1.png",
+      "url": "https://example.com/offline",
+      "cardGlow": true
+    }
+  ],
+  "footer": {
+    "copyright": "© 2026 Your App Name. All rights reserved."
+  }
+}

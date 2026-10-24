@@ -1,0 +1,721 @@
+/* ==========================================================================
+   LANDING PAGE DESIGN SYSTEM & STYLESHEET
+   Pure Vanilla CSS - Zero Frameworks, Fully Responsive, Anti-Slop Calibrated
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS Custom Properties (Theme Tokens & Dynamic Palette)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Dynamic Palette (Defaults injected or overridden by app.js from content.json) */
+  --primary-color: #4f46e5;
+  --accent-color: #62E647;
+  --surface-color: #090d16;
+
+  /* Typography variables (Defaults populated from content.json) */
+  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Default Dark Mode Tokens (Calm, high-contrast, zero-slop neon) */
+  --bg-page: var(--surface-color, #090d16);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-subtle: #64748b;
+  
+  /* Glass card surfaces */
+  --card-bg: rgba(17, 24, 39, 0.72);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --card-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.6);
+  
+  /* Metallic silver chassis tokens (Independent of theme - always sleek silver) */
+  --phone-metal-gradient: linear-gradient(145deg, #f8fafc 0%, #cbd5e1 40%, #94a3b8 75%, #e2e8f0 100%);
+  --phone-metal-border: rgba(148, 163, 184, 0.75);
+  --phone-button-metal: linear-gradient(180deg, #f1f5f9, #94a3b8);
+  --phone-shadow: 0 0 0 1px rgba(255, 255, 255, 0.75) inset, 0 0 0 2px rgba(100, 116, 139, 0.35), 0 35px 70px -15px rgba(0, 0, 0, 0.65);
+
+  /* Spotlight effect tokens */
+  --spotlight-glow: rgba(79, 70, 229, 0.25);
+  --spotlight-size: 340px;
+
+  /* Layout & transitions */
+  --max-width: 1140px;
+  --transition-theme: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Light Mode Overrides */
+[data-theme="light"] {
+  --bg-page: #f8fafc;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-subtle: #94a3b8;
+
+  --card-bg: rgba(255, 255, 255, 0.88);
+  --card-border: rgba(0, 0, 0, 0.08);
+  --card-shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.12);
+
+  --spotlight-glow: rgba(79, 70, 229, 0.12);
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset & Base Typography
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--text-main);
+  background-color: var(--bg-page);
+  transition: var(--transition-theme);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.15;
+  color: inherit;
+  text-wrap: balance; /* Prevents orphan words on headings */
+}
+
+p {
+  text-wrap: pretty; /* Prevents orphan words on the last line */
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   3. Floating Theme Switcher (Fixed Bottom-Right)
+   -------------------------------------------------------------------------- */
+.floating-theme-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.floating-theme-btn:hover {
+  transform: scale(1.1);
+}
+
+.floating-theme-btn:active {
+  transform: scale(0.95);
+}
+
+.theme-icon {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Toggle icon display based on theme */
+[data-theme="dark"] .sun-icon {
+  display: flex;
+}
+[data-theme="dark"] .moon-icon {
+  display: none;
+}
+
+[data-theme="light"] .sun-icon {
+  display: none;
+}
+[data-theme="light"] .moon-icon {
+  display: flex;
+}
+
+/* --------------------------------------------------------------------------
+   4. Hero Section & 3D Phone Scroll Effect Track
+   -------------------------------------------------------------------------- */
+.hero-scroll-track {
+  position: relative;
+  width: 100%;
+  min-height: 190vh; /* Smooth, tactile scroll runway for phone climb */
+}
+
+.hero-sticky-stage {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden; /* Phone gracefully extends off fold in start.png, climbs into view in end.png */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: clamp(4.5rem, 22vh, 13rem); /* Space before first text, matching start.png */
+  padding-bottom: 0;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  box-sizing: border-box;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+  will-change: transform;
+}
+
+.hero-subtitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--primary-color);
+  margin-bottom: 0.85rem;
+}
+
+.hero-title {
+  font-size: clamp(2.1rem, 5.2vw, 4.25rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  max-width: 15ch;
+  margin: 0 auto 1rem auto;
+  color: var(--text-main);
+  line-height: 1.08;
+}
+
+.hero-main-text {
+  font-size: clamp(0.95rem, 1.3vw, 1.12rem);
+  font-weight: 400;
+  color: var(--text-muted);
+  max-width: 56ch;
+  margin: 0 auto;
+  line-height: 1.55;
+}
+
+/* 3D Phone Scroll Container - Sits below text at start.png, climbs over text at end.png */
+.phone-scroll-stage {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 720px;
+  margin-top: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.phone-perspective {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Phone chassis with metallic silver styling (Fixed across themes) */
+.phone-chassis {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  background: var(--phone-metal-gradient);
+  border-radius: 40px;
+  padding: 8px;
+  border: 1px solid var(--phone-metal-border);
+  box-shadow: var(--phone-shadow);
+  transform-style: preserve-3d;
+  transform-origin: 50% 50%;
+  /* Initial tilt & scale matching start.png */
+  transform: translateY(-45px) perspective(900px) rotateX(24deg) scale(0.94);
+  will-change: transform;
+}
+
+/* Physical Phone Side Buttons (Metallic finish) */
+.phone-button {
+  position: absolute;
+  width: 3.5px;
+  background: var(--phone-button-metal);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.35);
+  border-radius: 2px;
+}
+
+.button-left-top {
+  left: -4.5px;
+  top: 18%;
+  height: 28px;
+}
+
+.button-left-bottom {
+  left: -4.5px;
+  top: 26%;
+  height: 44px;
+}
+
+.button-right {
+  right: -4.5px;
+  top: 23%;
+  height: 52px;
+}
+
+/* Device screen inner bezel - aspect-ratio applied directly here so screenshot fits 1:1 with zero top/bottom gaps */
+.phone-bezel {
+  position: relative;
+  height: clamp(444px, 64vh, 624px);
+  width: auto;
+  aspect-ratio: 1170 / 2532;
+  background: #000000;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.9), 0 0 0 2px #0a0a0a;
+}
+
+/* Physical glass glare reflection overlay (fades as phone stands upright) */
+.phone-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: 32px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.01) 50%, rgba(0, 0, 0, 0.18) 100%);
+  pointer-events: none;
+  z-index: 15;
+  opacity: 0.45;
+  transition: opacity 0.08s ease-out;
+}
+
+/* Camera island (always pitch black, mirroring physical glass hole) */
+.phone-camera-island {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 76px;
+  height: 20px;
+  background-color: #000000;
+  border-radius: 12px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.camera-lens {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #334155, #000);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Screen container & screenshot image - Flush edge-to-edge inside bezel with zero top/bottom gaps */
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Bezel aspect-ratio matches image 1:1 so image fills bezel edge-to-edge without gaps */
+  object-position: center center;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   5. Store Badges Section (Flat on surface color, no card wrapper)
+   -------------------------------------------------------------------------- */
+.stores-section {
+  position: relative;
+  z-index: 20;
+  margin-top: -24vh; /* Pulls store badges up close beneath the hero phone at end of scroll */
+  padding: 0 1.5rem 3.5rem;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.stores-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.stores-heading {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-subtle);
+  margin-bottom: 1.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stores-badges-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.store-badge-link {
+  display: inline-block;
+  line-height: 0;
+  border-radius: 10px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+}
+
+.store-badge-link:hover {
+  transform: translateY(-3px) scale(1.02);
+  opacity: 0.92;
+}
+
+.store-badge-img {
+  height: 52px; /* Clean, prominent badge size */
+  width: auto;
+  display: block;
+  border-radius: 8px;
+  border: none;
+  box-shadow: none; /* Flat on the surface color, no card, no shadow */
+}
+
+/* --------------------------------------------------------------------------
+   6. Dynamic Feature Sections (Color Bands + Spotlight Glass Tabs on Text)
+   -------------------------------------------------------------------------- */
+.features-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Full-width alternating color bands */
+.feature-band {
+  width: 100%;
+  padding: 6.5rem 1.5rem;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+/* Surface Band (Even items) */
+.feature-band.band-surface {
+  background-color: var(--bg-page);
+  color: var(--text-main);
+}
+
+.feature-band.band-surface .feature-headline {
+  color: var(--text-main);
+}
+
+.feature-band.band-surface .feature-desc {
+  color: var(--text-muted);
+}
+
+/* Accent Band (Odd items) with INVERSE text color */
+.feature-band.band-accent {
+  background-color: var(--accent-color);
+}
+
+/* In Dark Theme: Normal text is light (#f8fafc), so inverse text in accent band is dark (#090d16) */
+[data-theme="dark"] .feature-band.band-accent {
+  color: #090d16;
+}
+[data-theme="dark"] .feature-band.band-accent .feature-headline {
+  color: #090d16;
+}
+[data-theme="dark"] .feature-band.band-accent .feature-desc {
+  color: #1e293b;
+}
+[data-theme="dark"] .feature-band.band-accent .feature-glass-tab {
+  background: rgba(255, 255, 255, 0.38);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.15);
+  --spotlight-glow: rgba(255, 255, 255, 0.45);
+}
+
+/* In Light Theme: Normal text is dark (#0f172a), so inverse text in accent band is crisp white */
+[data-theme="light"] .feature-band.band-accent {
+  color: #ffffff;
+}
+[data-theme="light"] .feature-band.band-accent .feature-headline {
+  color: #ffffff;
+}
+[data-theme="light"] .feature-band.band-accent .feature-desc {
+  color: #f1f5f9;
+}
+[data-theme="light"] .feature-band.band-accent .feature-glass-tab {
+  background: rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.25);
+  --spotlight-glow: rgba(255, 255, 255, 0.3);
+}
+
+/* Row container inside the band */
+.band-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5rem;
+}
+
+/* Reverse alternating row (Image Left, Text Right) */
+.band-container.reverse {
+  flex-direction: row-reverse;
+}
+
+/* Glass Tab wrapping the TEXT */
+.feature-card-wrapper {
+  flex: 1 1 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.spotlight-card.feature-glass-tab {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  border-radius: 28px;
+  padding: 2.75rem 2.5rem;
+  background-color: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+a.feature-glass-tab {
+  text-decoration: none;
+  cursor: pointer;
+  display: block;
+}
+
+.feature-img-link {
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+  line-height: 0;
+  border-radius: 20px;
+}
+
+.spotlight-card.feature-glass-tab:hover {
+  transform: translateY(-4px);
+}
+
+/* Dynamic spotlight radial glow on mouse movement */
+.spotlight-card.feature-glass-tab::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  pointer-events: none;
+  background: radial-gradient(
+    var(--spotlight-size) circle at var(--mouse-x, -500px) var(--mouse-y, -500px),
+    var(--spotlight-glow),
+    transparent 80%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.spotlight-card.feature-glass-tab:hover::before {
+  opacity: 1;
+}
+
+.feature-headline {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(1.85rem, 3.2vw, 2.5rem);
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+  line-height: 1.2;
+}
+
+.feature-desc {
+  position: relative;
+  z-index: 2;
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+/* Image wrapper (Clean, uncropped display) */
+.feature-image-wrapper {
+  flex: 1 1 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.feature-img {
+  display: block;
+  object-fit: contain;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+  transition: transform 0.3s ease;
+}
+
+.feature-img:hover {
+  transform: scale(1.02);
+}
+
+/* Portrait screenshots (e.g. mobile phone capture) */
+.feature-img.is-portrait {
+  min-height: 300px;
+  max-height: 540px;
+  width: auto;
+  max-width: 100%;
+}
+
+/* Landscape screenshots (e.g. desktop capture) */
+.feature-img.is-landscape {
+  min-width: 410px;
+  max-width: 100%;
+  height: auto;
+}
+
+/* --------------------------------------------------------------------------
+   7. Footer Section
+   -------------------------------------------------------------------------- */
+.site-footer {
+  border-top: 1px solid var(--card-border);
+  padding: 3.5rem 1.5rem;
+  text-align: center;
+  background-color: var(--bg-page);
+  transition: var(--transition-theme);
+}
+
+.footer-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.copyright-text {
+  font-size: 0.95rem;
+  color: var(--text-subtle);
+  letter-spacing: 0.01em;
+}
+
+/* --------------------------------------------------------------------------
+   8. Responsive Media Queries (Mobile First Stacking)
+   -------------------------------------------------------------------------- */
+@media (max-width: 860px) {
+  .hero-scroll-track {
+    min-height: 175vh;
+  }
+
+  .hero-sticky-stage {
+    padding: clamp(3.5rem, 18vh, 10rem) 1rem 0;
+  }
+
+  .phone-chassis {
+    width: fit-content;
+    height: fit-content;
+    border-radius: 36px;
+    padding: 7px;
+  }
+
+  .phone-bezel {
+    height: clamp(386px, 62vh, 586px);
+    width: auto;
+    aspect-ratio: 1170 / 2532;
+    border-radius: 29px;
+  }
+
+  .stores-section {
+    margin-top: -22vh;
+    padding: 0 1.25rem 3rem;
+  }
+
+  .feature-band {
+    padding: 4.5rem 1.25rem;
+  }
+
+  /* Clean vertical stacking on mobile */
+  .band-container,
+  .band-container.reverse {
+    flex-direction: column !important;
+    gap: 2.5rem;
+    text-align: center;
+  }
+
+  .feature-card-wrapper {
+    width: 100%;
+  }
+
+  .spotlight-card.feature-glass-tab {
+    max-width: 100%;
+    padding: 2rem 1.5rem;
+  }
+
+  .feature-image-wrapper {
+    width: 100%;
+  }
+
+  /* Mobile Portrait: Max 700px high */
+  .feature-img.is-portrait {
+    max-height: 700px;
+    width: auto;
+    max-width: 100%;
+    min-height: auto;
+  }
+
+  /* Mobile Landscape: Full width minus padding */
+  .feature-img.is-landscape {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .floating-theme-btn {
+    bottom: 1.25rem;
+    right: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .stores-badges-row {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+}

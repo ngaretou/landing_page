@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Showcase</title>
+  <meta name="description" content="Experience clean design and seamless interactions on all your devices.">
+  
+  <!-- Preconnect to Google Fonts for zero-latency font loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Dynamic font link placeholder (app.js will populate or update this) -->
+  <link id="google-fonts-link" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap">
+  
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Floating Theme Switcher (Bottom-Right) -->
+  <button 
+    type="button" 
+    class="theme-toggle-btn floating-theme-btn" 
+    id="theme-toggle" 
+    aria-label="Toggle light or dark theme"
+    title="Toggle light or dark theme">
+    <span class="theme-icon sun-icon" aria-hidden="true">
+      <!-- Sun SVG -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+    </span>
+    <span class="theme-icon moon-icon" aria-hidden="true">
+      <!-- Moon SVG -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    </span>
+  </button>
+
+  <main id="main-content">
+    <!-- Hero Scroll Track (Spans scroll height for 3D phone climb and tilt) -->
+    <section class="hero-scroll-track" id="hero-section">
+      <div class="hero-sticky-stage" id="hero-sticky-stage">
+        <div class="hero-content" id="hero-content">
+          <p class="hero-subtitle" id="hero-subtitle">Native Mobile Experience</p>
+          <h1 class="hero-title" id="hero-title">Organize your life with effortless speed.</h1>
+          <p class="hero-main-text" id="hero-main-text">
+            Crafted with clean native interactions, instant sync, and zero distractions. Built to elevate how you work every single day.
+          </p>
+        </div>
+
+        <!-- Phone Scroll Hero Widget Container -->
+        <div class="phone-scroll-stage" id="phone-scroll-stage">
+          <div class="phone-perspective" id="phone-perspective">
+            <div class="phone-chassis" id="phone-chassis">
+              <!-- Physical Device Side Buttons -->
+              <span class="phone-button button-left-top" aria-hidden="true"></span>
+              <span class="phone-button button-left-bottom" aria-hidden="true"></span>
+              <span class="phone-button button-right" aria-hidden="true"></span>
+
+              <!-- Bezel & Screen Outer Frame -->
+              <div class="phone-bezel">
+                <!-- Physical glass glare reflection overlay (fades as phone stands upright) -->
+                <div class="phone-glare" id="phone-glare" aria-hidden="true"></div>
+
+                <!-- Camera Island / Dynamic Island (stays pitch black in both modes) -->
+                <div class="phone-camera-island" aria-hidden="true">
+                  <span class="camera-lens"></span>
+                </div>
+                
+                <!-- Screen Viewport -->
+                <div class="phone-screen" id="phone-screen">
+                  <img 
+                    id="hero-screenshot" 
+                    src="images/screenshot_1.png" 
+                    alt="App interface screenshot" 
+                    loading="eager"
+                    decoding="async">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- App Store Badges Section -->
+    <section class="stores-section" id="stores-section">
+      <div class="stores-container">
+        <p class="stores-heading" id="stores-heading">Download for iOS & Android</p>
+        <div class="stores-badges-row" id="stores-badges-row">
+          <a href="#" class="store-badge-link" id="app-store-link" target="_blank" rel="noopener noreferrer">
+            <img src="images/app-store-badge.png" alt="Download on the App Store" class="store-badge-img" id="app-store-badge-img">
+          </a>
+          <a href="#" class="store-badge-link" id="google-play-link" target="_blank" rel="noopener noreferrer">
+            <img src="images/google-play-badge.png" alt="Get it on Google Play" class="store-badge-img" id="google-play-badge-img">
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dynamic Feature Sections (Alternating Color Bands & Spotlight Glass Cards around Text) -->
+    <div class="features-wrapper" id="features-container">
+      <!-- Rendered dynamically by app.js from content.json -->
+    </div>
+  </main>
+
+  <!-- Footer Section -->
+  <footer class="site-footer" id="site-footer">
+    <div class="footer-container">
+      <p class="copyright-text" id="footer-copyright">© 2026 Your App Name. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Application Logic (dynamic JSON binding, phone scroll interpolation, spotlight card glow, theme toggle) -->
+  <script src="app.js"></script>
+</body>
+</html>
