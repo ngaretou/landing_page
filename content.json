@@ -14,17 +14,17 @@
       "body": "Poppins"
     },
     "palette": {
-      "_note": "You can customize the color palette for your app. The primary color is used for buttons and highlights, accent color for secondary actions, and surface color for backgrounds. Try https://color.adobe.com/ to generate a palette.",
-      "primary": "#4f46e5",
-      "accent": "#272370",
-      "surface": "#090d16"
+      "_note": "You can customize the color palette for your app. The primary color is used for buttons and highlights, accent color for secondary actions, and surface color for background when dark mode is enabled - light mode is white surface. Try https://color.adobe.com/ to generate a palette.",
+      "primary": "#98A896",
+      "accent": "#9D95F5",
+      "surface": "#121029"
     }
   },
   "hero": {
     "_note": "This is the hero section of your app landing page. You can customize the title, subtitle, main text, and screenshot image. Try to keep your screenshots under 500 KB for faster loading.",
     "subtitle": "A companion on your walk with God",
     "title": "This is the name of the app",
-    "mainText": "Here's a brief description of the app. You can add more details here to entice users to download it. You can also make this a Bible verse.",
+    "mainText": "Here's a brief description of the app. You can add more details here to tell users why they should download it. You can also make this a Bible verse.",
     "screenshot": "images/ios_screenshot.png"
   },
   "stores": {
