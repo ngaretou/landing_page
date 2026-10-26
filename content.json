@@ -1,5 +1,5 @@
 {
-  "pageTitle": "Sax ci Moom",
+  "pageTitle": "App Title",
   "favicon": "images/favico.svg",
   "frame": {
     "_note": "This section adds the device frame around the app screenshot. You can choose between 'android', 'ios' for the type, and specify the cutout style 'pill', 'punch-hole' or 'none'.",
@@ -16,43 +16,50 @@
     "palette": {
       "_note": "You can customize the color palette for your app. The primary color is used for buttons and highlights, accent color for secondary actions, and surface color for backgrounds. Try https://color.adobe.com/ to generate a palette.",
       "primary": "#4f46e5",
-      "accent": "#facc15",
+      "accent": "#272370",
       "surface": "#090d16"
     }
   },
   "hero": {
     "_note": "This is the hero section of your app landing page. You can customize the title, subtitle, main text, and screenshot image. Try to keep your screenshots under 500 KB for faster loading.",
-    "subtitle": "Soo bëgg sore ci sa digganteek Yàlla",
-    "title": "Sax ci Moom",
-    "mainText": "\"Saxleen ci man, ni ma saxe man ci sama bopp ci yeen. Ni carub reseñ tëlee meññal boppam, su saxul ci ndeyam, ni ngeen di tëlee meññ, su ngeen saxul ci man.\" <br>(Yowaan 15.4)",
+    "subtitle": "A companion on your walk with God",
+    "title": "This is the name of the app",
+    "mainText": "Here's a brief description of the app. You can add more details here to entice users to download it. You can also make this a Bible verse.",
     "screenshot": "images/ios_screenshot.png"
   },
   "stores": {
     "_note": "Make sure to change links below to your app links. Customize the app store badges for iOS and Android - grab the name and path for the appropriate badges from the images/ folder, i.e.'images/app store badges/Download_on_the_App_Store_Badge_FR_RGB_blk_100517.svg' for French.",
-    "heading": "Yebleen ngir Android",
-    "showBadges": true,
-    "showIos": false,
+    "heading": "Download for Android & iOS",
+    "showIos": true,
+    "showAndroid": true,
     "appStore": {
       "url": "https://apple.com/myapp-direct-link",
       "badge": "images/app-store-badge.svg"
     },
     "googlePlay": {
-      "url": "https://play.google.com/store/apps/details?id=llc.foundational.sax",
+      "url": "https://play.google.com/store/apps/",
       "badge": "images/play-store-badge.svg"
     }
   },
   "_note": "'sections' is the alternating rows content section of your app landing page. You can add multiple sections with headlines, text, images, and links. Supports line breaks via '\\n' or '<br>'. It will adjust to landscape or portrait images and also handle empty URLs if you want to just give info, not a link on one section.",
   "sections": [
         {
-      "headline": "Ñetti téree ngii...",
-      "text": "...yu am solo ngir dimbali nit ñi, ñu sax ci Almasi bi. Man ngeena jàng walla ngeen déglu kàddu yu neexa dégg, ak mbind mu yomba gis, ànd ak ndigal yu lay amal njariñ saa su ne.",
-      "image": "images/ios_screenshot_3books.png",
+      "headline": "Bringing the Word to Life...",
+      "text": "This app is a great resource for anyone looking to deepen their understanding of the Bible. You can read, listen, and explore the scriptures in a way that fits your lifestyle.\n\nYou can have sections with landscape or portrait images",
+      "image": "images/desktop.png",
       "url": "https://play.google.com/store/apps/details?id=llc.foundational.sax",
       "cardGlow": true
     }, 
      {
       "headline": "",
-      "text": "* Soo Bëgg Sore<br>* Jigéen yi ak Yàlla<br>* Fukki nettali ak ñaar ci mbirum Mucc",
+      "text": "You can also use this section to highlight key features of the app, such as:\n* Daily Devotionals\n* Bible Study Plans\n* Audio Bible\n* Community Discussions\n No need to have a headline if you don't want one.",
+      "image": "images/ios_screenshot_3books.png",
+      "url": "https://play.google.com/store/apps/details?id=llc.foundational.sax",
+      "cardGlow": true
+    },
+      {
+      "headline": "Good point",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat sapien ut dui congue, a accumsan sem hendrerit. In euismod eros eu bibendum tempor. Cras at nisi ut nunc rutrum porta eget a nisi. Mauris non nisi massa. Quisque tempus est metus, tincidunt ultricies odio iaculis nec. Ut porta gravida lacus. Sed in sapien eget sapien fringilla iaculis vitae eu quam.\n\nMaecenas luctus leo arcu, id consectetur ante lacinia interdum. Duis ornare enim quam, id fermentum erat accumsan ut. Vivamus nisi arcu, auctor commodo dolor nec, finibus cursus nulla. Sed ullamcorper dui nunc, at porttitor sem interdum vitae. Curabitur eu ligula dignissim, eleifend velit in, cursus neque. Donec velit nunc, interdum et sagittis non, molestie eget nisl. Curabitur nisl diam, tempus sit amet lectus nec, pulvinar eleifend ipsum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut at auctor nunc. Suspendisse potenti. Suspendisse eu mauris libero. Sed venenatis massa ac aliquam euismod.",
       "image": "images/ios_screenshot_3books.png",
       "url": "https://play.google.com/store/apps/details?id=llc.foundational.sax",
       "cardGlow": true

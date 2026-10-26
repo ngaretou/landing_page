@@ -17,7 +17,7 @@ Build a high-performance, responsive, modern landing page driven by an editable 
 ├── images/
 │   ├── app-store-badge.png
 │   ├── google-play-badge.png
-│   ├── screenshot_1.png
+│   ├── ios_screenshot.png
 │   └── (user screenshots)
 ├── content.json          # Main editable configuration & copy file
 ├── index.html            # Semantic HTML skeleton & templates
@@ -49,10 +49,11 @@ To ensure backward compatibility and smooth upgrades for deployed apps, every fi
     "subtitle": "Introducing Your Next Favourite App",
     "title": "Experience simplicity, redefined.",
     "mainText": "Everything you need to track, manage, and elevate your daily routine in one sleek native package.",
-    "screenshot": "images/screenshot_1.png"
+    "screenshot": "images/ios_screenshot.png"
   },
   "stores": {
-    "showBadges": true,
+    "showIos": true,
+    "showAndroid": true,
     "appStore": {
       "url": "https://apple.com",
       "badge": "images/app-store-badge.png"
@@ -66,13 +67,13 @@ To ensure backward compatibility and smooth upgrades for deployed apps, every fi
     {
       "headline": "Real-time sync across devices",
       "text": "Never lose your place. Cloud-first architecture keeps your information synced instantly.",
-      "image": "images/screenshot_1.png",
+      "image": "images/ios_screenshot.png",
       "cardGlow": true
     },
     {
       "headline": "Distraction-free clarity",
       "text": "Crafted with precision typography and minimalist glass surfaces designed to stay out of your way.",
-      "image": "images/screenshot_1.png",
+      "image": "images/ios_screenshot.png",
       "cardGlow": true
     }
   ],
@@ -81,6 +82,30 @@ To ensure backward compatibility and smooth upgrades for deployed apps, every fi
   }
 }
 ```
+### Configuration Field Reference
+
+| Path | Description |
+| :--- | :--- |
+| `pageTitle` | Page title populated to `<head><title>` in the browser tab and search engines. |
+| `favicon` | Path to the website favicon (e.g. `"images/favico.svg"`, `.png`, or `.ico`). |
+| `frame.type` | Device chassis style: `"iphone"` (squircle corners, split side buttons) or `"android"` (sleeker radius, right-side power & volume buttons). |
+| `frame.cutout` | Camera cutout overlay: `"pill"` (Apple Dynamic Island), `"punch-hole"` (Android centered camera pin), or `"none"` (clean screen with no cutout overlay). |
+| `theme.defaultTheme` | Initial theme before user toggle (`"dark"` or `"light"`). |
+| `theme.fonts.heading` | Google Font family name for `h1`–`h4` headings (default: `"Outfit"`). |
+| `theme.fonts.body` | Google Font family name for body text (default: `"Poppins"`). |
+| `theme.palette.primary` | Hex color for the hero subtitle kicker and spotlight glow tint. |
+| `theme.palette.accent` | Hex color for alternating feature section bands (`.band-accent`). |
+| `theme.palette.surface` | Hex color for the dark-mode page background (`--bg-page`). |
+| `hero.*` | `subtitle`, `title` (fallback for `<title>` if `pageTitle` omitted), `mainText`, and `screenshot` path inside the 3D phone. |
+| `stores.showIos` | Set to `false` if your app is Android-only to hide the Apple App Store badge. |
+| `stores.showAndroid` | Set to `false` if your app is iOS-only to hide the Google Play badge. Set both to `false` to hide badges completely. |
+| `stores.heading` | Customizable heading above the store badges. |
+| `sections[]` | Growable array of feature rows. Odd sections (`1st, 3rd, ...`) use Accent bands (Text Left, Image Right); even sections (`2nd, 4th, ...`) use Surface bands (Image Left, Text Right) matching the hero background. Stack vertically on mobile. |
+| `sections[].headline` | *(Optional)* Headline for the section. If set to `""` or omitted, the headline and its spacing are eliminated so body text fills the card from the top. |
+| `sections[].text` | Description copy inside the feature's spotlight card. Supports line breaks via `\n` or `<br>`. |
+| `sections[].url` | *(Optional)* URL opened when clicking the feature's glass card or screenshot. |
+| `footer.copyright` | Copyright notice rendered in the site footer. |
+
 
 ---
 

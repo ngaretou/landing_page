@@ -75,4 +75,6 @@
    - Coordinated smooth fade out in `app.js` after `content.json` finishes DOM hydration and the hero screenshot loads (with a 2.5s safety timeout).
    - Added `white-space: pre-line` and `formatText()` in `app.js` so both `\n` and `<br>` work seamlessly in `content.json`.
    - Supported empty headlines (`"headline": ""`): headline element and its margin are eliminated entirely so body text begins at the very top of the glass card.
+   - Streamlined store badge toggles: removed redundant `showBadges` in favor of intuitive `showIos: true/false` and `showAndroid: true/false` flags (with setting both to `false` automatically hiding the section).
+
 

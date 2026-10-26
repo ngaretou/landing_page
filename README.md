@@ -1,71 +1,35 @@
-# Mobile App Showcase Landing Page
+# 📱 Mobile App Showcase Landing Page
 
-A high-performance, responsive, zero-framework landing page built with **pure vanilla HTML5, CSS3, and JavaScript**. Designed for simplicity and low maintenance. Controlled through a single editable `content.json` file.
+Welcome! This is a clean, modern, and beautifully animated landing page template made for your mobile app. 
 
----
+👉 Live demo at https://ngaretou.github.io/landing_page/ 👈
 
-## ✨ Key Features
-
-- **Zero Frameworks & Zero Build Step**: No React, Tailwind, npm dependencies, or bundlers that can break over time. Just edit `content.json` and host anywhere.
-- **JSON-Driven Configuration (`content.json`)**: Customize typography, color palette, hero copy, App Store / Google Play links, a growable list of feature sections, and footer text without touching HTML or JS.
-- **3D Phone Scroll Hero Widget**:
-  - Aerospace metallic silver/titanium device chassis (consistent across light and dark modes) with physical side buttons, pitch-black Dynamic Island camera cutout. 
-  - **Edge-to-Edge Bezel Sync**: Automatically matches the inner bezel's aspect ratio to your hero screenshot's natural dimensions (`naturalWidth / naturalHeight`) so there are zero top or bottom gaps.
-  - **Smooth 3D Scroll Interpolation**: Starts tilted backward (`rotateX(24deg) scale(0.94)`) below the hero text and smoothly flattens to `0deg` while climbing upward to frame the headline as the user scrolls.
-- **Alternating Color Bands & Spotlight Glass Cards**:
-  - Feature sections alternate between full-width **Surface** and **Accent** color bands with automatic high-contrast inverse typography.
-  - Text blocks are wrapped in frosted glass tabs (`backdrop-filter: blur()`) featuring an interactive pointer-tracking radial spotlight glow.
-  - Optional per-section `url` turns both the glass text card and screenshot into clickable links.
-- **Uncropped Portrait & Landscape Screenshots**:
-  - Screenshots are never force-cropped. `app.js` detects each image's aspect ratio on load and applies tailored portrait or landscape sizing rules for desktop and mobile viewports.
-- **Dynamic Google Fonts & Theme Switcher**:
-  - Automatically loads any Google Font specified in `content.json` (defaults to **Outfit** for headings and **Poppins** for body copy).
-  - Floating bottom-right Light/Dark theme toggle with `localStorage` persistence and system preference detection.
+It was designed especially for app creators, small teams, and anyone who wants a stunning website without the headache of coding. You **do not** need to know HTML, CSS, JavaScript, or any complex web developer tools to make this your own. Everything you see on the page—from the titles and descriptions to your app screenshots, store links, colors, and fonts—is controlled through one simple, human-editable file called **`content.json`**.
 
 ---
 
-## 📁 Project Structure
+## ✨ What You Get
 
-```text
-/
-├── content.json          # Main editable configuration & copy file
-├── index.html            # Semantic HTML5 structure
-├── styles.css            # Design system, CSS variables, 3D phone & responsive layout
-├── app.js                # Config loader, DOM hydration, 3D scroll interpolation, spotlight & theme engine
-├── images/
-│   ├── app-store-badge.png
-│   ├── google-play-badge.png
-│   └── screenshot_1.png  # App screenshots referenced in content.json
-└── .gemini/
-    ├── requirements.md   # Original product & widget requirements
-    ├── plan.md           # Architecture & technical implementation plan
-    ├── style.md          # Visual guidelines & anti-slop catalog
-    └── progress.md       # Implementation & calibration log
-```
-
----
-
-## 🚀 Quick Start (Running Locally)
-
-Because modern browsers block `fetch('content.json')` over the `file://` protocol due to CORS security rules, preview the page using any lightweight local HTTP server from the project root:
-
-```bash
-python3 -m http.server 8080
-```
-
-Then open **[http://localhost:8080](http://localhost:8080)** in your browser (or use the **VS Code Live Server** extension).
-
-> **Offline / `file://` Fallback**: If opened directly via `file://`, `app.js` includes a built-in `DEFAULT_CONFIG` fallback so the page still renders cleanly.
+- **Eye-Catching 3D Phone Display**: An interactive smartphone showcase right at the top that smoothly stands up and frames your app title as visitors scroll down the page.
+- **iPhone or Android Look**: Switch between an iPhone or Android phone frame with realistic side buttons and camera cutouts with a single setting.
+- **Ready for App Store & Google Play**: Badges for Apple App Store and Google Play are built right in. If your app is only on Android or only on iOS, you can easily turn off the badge you don't need.
+- **Alternating Feature Cards**: Beautiful cards with frosted glass tabs and interactive light effects that highlight what makes your app special.
+- **Light & Dark Theme Toggle**: Visitors can switch between dark and light themes with the tap of a button, and the page remembers their choice.
+- **Line Breaks Made Simple**: Easily add line breaks and paragraphs in your text using `\n` or `<br>`.
+- **Works on Every Screen**: Fully responsive and mobile-friendly. It looks great whether someone visits on an iPhone, an Android phone, an iPad, or a widescreen computer monitor.
+- **Zero Maintenance**: No frameworks, build steps, or complicated software that breaks over time. Just plain, reliable web files.
 
 ---
 
 ## 🛠 Customizing Your Landing Page (`content.json`)
 
-All content and styling tokens live in `content.json`:
+All your text, links, pictures, and color settings live in one file: **`content.json`**. You can open it in any text editor.
+
+Here is an example of what it looks like inside:
 
 ```json
 {
-  "pageTitle": "App Showcase",
+  "pageTitle": "My Awesome App",
   "favicon": "images/favico.svg",
   "frame": {
     "type": "iphone",
@@ -86,68 +50,117 @@ All content and styling tokens live in `content.json`:
   "hero": {
     "subtitle": "Native Mobile Experience",
     "title": "Organize your life with effortless speed.",
-    "mainText": "Crafted with clean native interactions, instant sync, and zero distractions. Built to elevate how you work every single day.",
-    "screenshot": "images/screenshot_1.png"
-  },
-  "stores": {
-    "heading": "Download for iOS & Android",
-    "showBadges": true,
-    "showIos": true,
-    "appStore": {
-      "url": "https://apple.com",
-      "badge": "images/app-store-badge.svg"
-    },
-    "googlePlay": {
-      "url": "https://google.com",
-      "badge": "images/play-store-badge.svg"
-    }
-  },
-  "sections": [
-    {
-      "headline": "Real-time sync across all your devices",
-      "text": "Your notes, tasks, and habits stay in perfect synchronization. Cloud-first architecture ensures instant availability everywhere you go.",
-      "image": "images/screenshot_1.png",
-      "url": "https://example.com/sync",
-      "cardGlow": true
-    }
-  ],
-  "footer": {
-    "copyright": "© 2026 Your App Name. All rights reserved."
-  }
+    "mainText": "Everything you need to track, manage, and elevate your daily routine in one sleek package.",
+    "screenshot": "images/ios_screenshot.png"
+  }...
 }
 ```
 
-### Field Reference
+### Helpful Tips for Customizing
 
-| Path | Description |
-| :--- | :--- |
-| `pageTitle` | Page title populated to `<head><title>` in the browser tab and search engines. |
-| `favicon` | Path to the website favicon (e.g. `"images/favico.svg"`, `.png`, or `.ico`). |
-| `frame.type` | Device chassis style: `"iphone"` (squircle corners, split side buttons) or `"android"` (sleeker radius, right-side power & volume buttons). |
-| `frame.cutout` | Camera cutout overlay: `"pill"` (Apple Dynamic Island), `"punch-hole"` (Android centered camera pin), or `"none"` (clean screen with no cutout overlay). |
-| `theme.defaultTheme` | Initial theme before user toggle (`"dark"` or `"light"`). |
-| `theme.fonts.heading` | Google Font family name for `h1`–`h4` headings (default: `"Outfit"`). |
-| `theme.fonts.body` | Google Font family name for body text (default: `"Poppins"`). |
-| `theme.palette.primary` | Hex color for the hero subtitle kicker and spotlight glow tint. |
-| `theme.palette.accent` | Hex color for alternating feature section bands (`.band-accent`). |
-| `theme.palette.surface` | Hex color for the dark-mode page background (`--bg-page`). |
-| `hero.*` | `subtitle`, `title` (fallback for `<title>` if `pageTitle` omitted), `mainText`, and `screenshot` path inside the 3D phone. |
-| `stores.showBadges` | Set to `false` to hide the App Store / Google Play section completely. |
-| `stores.showIos` | Set to `false` if your app is Android-only to hide the Apple App Store badge. |
-| `stores.heading` | Customizable heading above the store badges (defaults to "Download on Google Play" when `showIos` is `false`). |
-| `sections[]` | Growable array of feature rows. Odd sections (`1st, 3rd, ...`) use Accent bands (Text Left, Image Right); even sections (`2nd, 4th, ...`) use Surface bands (Image Left, Text Right) matching the hero background. Stack vertically on mobile. |
-| `sections[].headline` | *(Optional)* Headline for the section. If set to `""` or omitted, the headline and its spacing are eliminated so body text fills the card from the top. |
-| `sections[].text` | Description copy inside the feature's spotlight card. Supports line breaks via `\n` or `<br>`. |
-| `sections[].url` | *(Optional)* URL opened when clicking the feature's glass card or screenshot. |
-| `footer.copyright` | Copyright notice rendered in the site footer. |
+- **Adding Line Breaks & Paragraphs**:  
+  Inside any text field (like `mainText` or a feature's `text`), you can type `\n` to start a new line, or `\n\n` for a new paragraph. You can also use `<br>` if you prefer. Both work naturally!
+  
+- **Removing a Headline on a Feature Card**:  
+  If you want a feature card to show only description text without a headline, just leave it empty: `"headline": ""`. The template will automatically remove the headline line so your text fills the card from the top.
+
+- **Adding or Removing Feature Cards**:  
+  The `"sections"` list can have as many or as few cards as you want. Each card automatically alternates between your accent color and your background color.
+
+- **Adding Your App Screenshots**:  
+  Drop your image files into the `images/` folder, and write their paths in `content.json` (for example, `"images/my_screenshot.png"`). The page will automatically adapt to both tall phone captures and wide landscape captures without awkward cropping.
+
+- **Changing the Device Frame**:  
+  - In `"frame"`, change `"type"` to `"iphone"` or `"android"`.
+  - You can also choose `"cutout"`: `"pill"` (the modern camera island), `"punch-hole"` (centered selfie camera pin), or `"none"` (clean screen with no cutout overlay).
+
+- **Changing Store Badges**:  
+  - If your app is Android-only, set `"showIos": false`. The Apple badge will disappear and the heading will automatically adjust for you.
+  - If your app is iOS-only, set `"showAndroid": false`.
+  - Paste your real App Store and Google Play download links into `"url"`.
+
+- **Changing Colors & Fonts**:  
+  - You can pick your brand colors using simple hex codes (like `#4f46e5`).
+  - You can use any font from [Google Fonts](https://fonts.google.com/) by simply typing its name in `"heading"` and `"body"`.
 
 ---
 
-## 🌐 Deployment
+## 🚀 The Easiest Way to Get Started: Upload via FTP
 
-Since this project is 100% static with no build step, deploy the folder directly to **GitHub Pages**, **Cloudflare Pages**, **Netlify**, **Vercel**, **Firebase Hosting**, or any static web server by uploading `index.html`, `styles.css`, `app.js`, `content.json`, and `images/`.
+If you already have web hosting, the simplest way to get your landing page live is by uploading the files directly to your server:
+
+1. **Connect to your web server**: Open your favorite FTP program (such as [FileZilla](https://filezilla-project.org/) or [Cyberduck](https://cyberduck.io/)), or use the File Manager inside your web host's control panel (cPanel, Plesk, etc.).
+2. **Upload the project files**: Upload all the files in this folder to your website directory (usually named `public_html`, `www`, or `htdocs`):
+   - `index.html`
+   - `styles.css`
+   - `app.js`
+   - `content.json`
+   - The `images/` folder (with your app screenshots and icons)
+3. **Customize your content**: 
+   - Upload your screnshots or other images in the images folder
+   - Open `content.json` 
+     - either before uploading in any plain text editor (like Notepad on Windows or TextEdit on Mac)
+     - or right on the server after uploading via the FTP program's text editor 
+   
+4. **Visit your site**: Open your domain name in any browser, and your customized page is live!
+
+---
+
+## 💻 Previewing on Your Computer (Running a Local Server)
+
+You can preview your website locally on your computer by using Python, which comes with a built-in miniature web server.
+
+### Step 1: Make Sure You Have Python Installed
+- **Mac & Linux**: Python is usually already installed on your computer.
+- **Windows**: If you don't have Python installed, download it for free from the official website:
+  👉 **[https://www.python.org/downloads/](https://www.python.org/downloads/)**
+  
+  > ⚠️ **Important for Windows Users**: When the installer opens, make sure to check the box at the bottom that says **"Add python.exe to PATH"** before clicking Install.
+
+### Step 2: Open Your Terminal or Command Prompt
+- **On Mac**: Press `Command + Space`, type `Terminal`, and press `Enter`.
+- **On Windows**: Press the `Windows key`, type `cmd` (or `Command Prompt`), and press `Enter`.
+
+### Step 3: Go to Your Project Folder
+Type `cd ` (with a space after it), then **drag and drop your landing page folder** from your file manager directly into the Terminal window. The computer will automatically fill in the full folder path! Then press `Enter`.
+
+```bash
+cd /path/to/your/landing_page
+```
+
+### Step 4: Start the Local Server
+Type this command and press `Enter`:
+
+```bash
+python3 -m http.server 8080
+```
+
+*(Note: On some Windows computers, type `python -m http.server 8080` instead if `python3` isn't recognized).*
+
+### Step 5: View Your Page
+Open your web browser and visit:
+👉 **[http://localhost:8080](http://localhost:8080)**
+
+You will now see your landing page reading directly from your `content.json` file. Any time you make changes to `content.json`, just refresh your browser to see the update!
+
+### Step 6: When You're Done
+To stop the server, click inside your Terminal / Command Prompt window and press `Ctrl + C`.
+
+---
+
+## 💡 Why Can't I Just Double-Click `index.html` on My Computer?
+
+If you try to double-click `index.html` directly from your desktop or folder to open it in your browser (a `file:///` address), you will notice that your custom text from `content.json` doesn't load and default text appears instead.
+
+**Why does this happen?**  
+Modern web browsers (like Chrome, Safari, Edge, and Firefox) have a strict built-in security rule: they do not allow a web page opened directly from your hard drive to read other files on your computer. This safety feature protects your private computer files from being read by unauthorized scripts.
+
+Because this template reads your content from `content.json`, the browser requires a real web server (either your live website host or a tiny local server running on your computer) before it permits the file to be read.
+
+If you want to test and preview changes on your computer before uploading to the web, you can run a tiny local server in just a couple of minutes following the guide above!
 
 ## Thanks & Acknowledgments  
+
 #### Created with Gemini 3.8 Flash & Gemini 4 Argon. 
 
 #### Inspiration from: 

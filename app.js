@@ -34,11 +34,10 @@
       subtitle: "Native Mobile Experience",
       title: "Organize your life with effortless speed.",
       mainText: "Crafted with clean native interactions, instant sync, and zero distractions. Built to elevate how you work every single day.",
-      screenshot: "images/screenshot_1.png"
+      screenshot: "images/ios_screenshot.png"
     },
     stores: {
       heading: "Download for iOS & Android",
-      showBadges: true,
       showIos: true,
       showAndroid: true,
       appStore: {
@@ -54,21 +53,21 @@
       {
         headline: "Real-time sync across all your devices",
         text: "Your notes, tasks, and habits stay in perfect synchronization. Cloud-first architecture ensures instant availability everywhere you go.",
-        image: "images/screenshot_1.png",
+        image: "images/ios_screenshot.png",
         url: "https://example.com/sync",
         cardGlow: true
       },
       {
         headline: "Distraction-free clarity with thoughtful design",
         text: "Every pixel is placed with intention. Enjoy high-contrast legibility, calm color tones, and tactile responsive controls that respect your focus.",
-        image: "images/screenshot_1.png",
+        image: "images/ios_screenshot.png",
         url: "https://example.com/design",
         cardGlow: true
       },
       {
         headline: "Offline-ready with robust local persistence",
         text: "Stay productive even without an active internet connection. Work uninterrupted on planes, subways, or remote spots with instant local caching.",
-        image: "images/screenshot_1.png",
+        image: "images/ios_screenshot.png",
         url: "https://example.com/offline",
         cardGlow: true
       }
@@ -399,7 +398,7 @@
 
           const img = document.createElement('img');
           img.className = 'feature-img';
-          img.src = sec.image || 'images/screenshot_1.png';
+          img.src = sec.image || 'images/ios_screenshot.png';
           img.alt = labelText;
           img.loading = 'lazy';
           img.decoding = 'async';
