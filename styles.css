@@ -101,6 +101,48 @@ a {
 }
 
 /* --------------------------------------------------------------------------
+   2.5 App Launch Splash Screen (Smoothly reveals page once content is ready)
+   -------------------------------------------------------------------------- */
+.page-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  background-color: var(--bg-page);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+  pointer-events: auto;
+}
+
+.page-splash.splash-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.splash-spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.14);
+  border-top-color: var(--primary-color);
+  animation: splashSpin 0.75s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+[data-theme="light"] .splash-spinner {
+  border-color: rgba(0, 0, 0, 0.08);
+  border-top-color: var(--primary-color);
+}
+
+@keyframes splashSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* --------------------------------------------------------------------------
    3. Floating Theme Switcher (Fixed Bottom-Right)
    -------------------------------------------------------------------------- */
 .floating-theme-btn {
@@ -208,6 +250,7 @@ a {
   margin: 0 auto 1rem auto;
   color: var(--text-main);
   line-height: 1.08;
+  white-space: pre-line;
 }
 
 .hero-main-text {
@@ -217,13 +260,15 @@ a {
   max-width: 56ch;
   margin: 0 auto;
   line-height: 1.55;
+  white-space: pre-line;
 }
 
 .hero-subtitle:empty,
 .hero-title:empty,
 .hero-main-text:empty,
 .stores-heading:empty,
-.copyright-text:empty {
+.copyright-text:empty,
+.feature-headline:empty {
   display: none;
 }
 
@@ -421,6 +466,12 @@ a {
   object-fit: cover; /* Bezel aspect-ratio matches image 1:1 so image fills bezel edge-to-edge without gaps */
   object-position: center center;
   display: block;
+  transition: opacity 0.25s ease-out;
+}
+
+.phone-screen img:not([src]),
+.phone-screen img[src=""] {
+  opacity: 0;
 }
 
 /* --------------------------------------------------------------------------
@@ -431,7 +482,7 @@ a {
   z-index: 20;
   margin-top: -24vh; /* Pulls store badges up close beneath the hero phone at end of scroll */
   margin-bottom: 0;
-  padding: 0 1.5rem 0;
+  padding: 0 1.5rem 4rem;
   text-align: center;
   background-color: transparent;
   border: none;
@@ -644,6 +695,7 @@ a.feature-glass-tab {
   letter-spacing: -0.02em;
   margin-bottom: 1.25rem;
   line-height: 1.2;
+  white-space: pre-line;
 }
 
 .feature-desc {
@@ -651,6 +703,7 @@ a.feature-glass-tab {
   z-index: 2;
   font-size: 1.05rem;
   line-height: 1.65;
+  white-space: pre-line;
 }
 
 /* Image wrapper (Clean, uncropped display) */
@@ -659,11 +712,23 @@ a.feature-glass-tab {
   display: flex;
   justify-content: center;
   align-items: center;
+  max-width: 100%;
+}
+
+.feature-img-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
 }
 
 .feature-img {
   display: block;
   object-fit: contain;
+  max-width: 100%;
+  max-height: 540px;
+  width: auto;
+  height: auto;
   border-radius: 20px;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
   transition: transform 0.3s ease;
@@ -683,7 +748,6 @@ a.feature-glass-tab {
 
 /* Landscape screenshots (e.g. desktop capture) */
 .feature-img.is-landscape {
-  min-width: 410px;
   max-width: 100%;
   height: auto;
 }
@@ -748,7 +812,7 @@ a.feature-glass-tab {
   .stores-section {
     margin-top: -22vh;
     margin-bottom: 0;
-    padding: 0 1.25rem 0;
+    padding: 0 1.25rem 3rem;
   }
 
   .feature-band {

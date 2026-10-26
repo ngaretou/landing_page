@@ -16,10 +16,28 @@
   <!-- Dynamic font link placeholder (app.js will populate or update this) -->
   <link id="google-fonts-link" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap">
   
+  <!-- Instant Theme Attribute Init (prevents light/dark flash before CSS loads) -->
+  <script>
+    try {
+      var savedTheme = localStorage.getItem('app-theme');
+      if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+    } catch (e) {}
+  </script>
+
   <!-- Main stylesheet -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- App Launch / Splash Screen (Smoothly reveals page once content is ready) -->
+  <div class="page-splash" id="page-splash" aria-hidden="true">
+    <div class="splash-spinner" aria-label="Loading"></div>
+  </div>
+  <noscript>
+    <style>
+      .page-splash { display: none !important; }
+    </style>
+  </noscript>
+
   <!-- Floating Theme Switcher (Bottom-Right) -->
   <button 
     type="button" 
@@ -54,11 +72,9 @@
     <section class="hero-scroll-track" id="hero-section">
       <div class="hero-sticky-stage" id="hero-sticky-stage">
         <div class="hero-content" id="hero-content">
-          <p class="hero-subtitle" id="hero-subtitle">Native Mobile Experience</p>
-          <h1 class="hero-title" id="hero-title">Organize your life with effortless speed.</h1>
-          <p class="hero-main-text" id="hero-main-text">
-            Crafted with clean native interactions, instant sync, and zero distractions. Built to elevate how you work every single day.
-          </p>
+          <p class="hero-subtitle" id="hero-subtitle"></p>
+          <h1 class="hero-title" id="hero-title"></h1>
+          <p class="hero-main-text" id="hero-main-text"></p>
         </div>
 
         <!-- Phone Scroll Hero Widget Container -->
@@ -85,7 +101,6 @@
                 <div class="phone-screen" id="phone-screen">
                   <img 
                     id="hero-screenshot" 
-                    src="images/screenshot_1.png" 
                     alt="App interface screenshot" 
                     loading="eager"
                     decoding="async">
@@ -100,7 +115,7 @@
     <!-- App Store Badges Section -->
     <section class="stores-section" id="stores-section">
       <div class="stores-container">
-        <p class="stores-heading" id="stores-heading">Download for iOS & Android</p>
+        <p class="stores-heading" id="stores-heading"></p>
         <div class="stores-badges-row" id="stores-badges-row">
           <a href="#" class="store-badge-link" id="google-play-link" target="_blank" rel="noopener noreferrer">
             <img src="images/play-store-badge.svg" alt="Get it on Google Play" class="store-badge-img" id="google-play-badge-img">
@@ -121,7 +136,7 @@
   <!-- Footer Section -->
   <footer class="site-footer" id="site-footer">
     <div class="footer-container">
-      <p class="copyright-text" id="footer-copyright">© 2026 Your App Name. All rights reserved.</p>
+      <p class="copyright-text" id="footer-copyright"></p>
     </div>
   </footer>
 

@@ -168,6 +168,15 @@
   }
 
   // ---------------------------------------------------------------------------
+  // Helper: Format text with line breaks (converts <br> or <br/> tags to newlines,
+  // safe with element.textContent and CSS white-space: pre-line)
+  // ---------------------------------------------------------------------------
+  function formatText(str) {
+    if (typeof str !== 'string') return '';
+    return str.replace(/<br\s*\/?>/gi, '\n');
+  }
+
+  // ---------------------------------------------------------------------------
   // 4. Content Hydration from JSON
   // ---------------------------------------------------------------------------
   function renderContent(config) {
@@ -257,21 +266,24 @@
 
       if (subtitleEl && typeof config.hero.subtitle === 'string') {
         const isBlank = config.hero.subtitle.trim() === '';
-        subtitleEl.textContent = isBlank ? '' : config.hero.subtitle;
+        subtitleEl.textContent = isBlank ? '' : formatText(config.hero.subtitle);
         subtitleEl.style.display = isBlank ? 'none' : '';
       }
       if (titleEl && typeof config.hero.title === 'string') {
         const isBlank = config.hero.title.trim() === '';
-        titleEl.textContent = isBlank ? '' : config.hero.title;
+        titleEl.textContent = isBlank ? '' : formatText(config.hero.title);
         titleEl.style.display = isBlank ? 'none' : '';
       }
       if (mainTextEl && typeof config.hero.mainText === 'string') {
         const isBlank = config.hero.mainText.trim() === '';
-        mainTextEl.textContent = isBlank ? '' : config.hero.mainText;
+        mainTextEl.textContent = isBlank ? '' : formatText(config.hero.mainText);
         mainTextEl.style.display = isBlank ? 'none' : '';
       }
-      if (screenshotEl && config.hero.screenshot && screenshotEl.getAttribute('src') !== config.hero.screenshot) {
-        screenshotEl.src = config.hero.screenshot;
+      if (screenshotEl) {
+        const targetSrc = (config.hero && config.hero.screenshot) || DEFAULT_CONFIG.hero.screenshot;
+        if (targetSrc && screenshotEl.getAttribute('src') !== targetSrc) {
+          screenshotEl.src = targetSrc;
+        }
       }
     }
 
@@ -293,7 +305,7 @@
           if (headingEl) {
             if (typeof config.stores.heading === 'string') {
               const isBlank = config.stores.heading.trim() === '';
-              headingEl.textContent = isBlank ? '' : config.stores.heading;
+              headingEl.textContent = isBlank ? '' : formatText(config.stores.heading);
               headingEl.style.display = isBlank ? 'none' : '';
             } else {
               headingEl.textContent = !showIos ? "Download on Google Play" : (!showAndroid ? "Download on the App Store" : "Download for iOS & Android");
@@ -331,9 +343,9 @@
         container.innerHTML = ''; // Clear container
 
         config.sections.forEach((sec, index) => {
-          // Full-width color band (Alternating between Surface and Accent)
+          // Full-width color band (Odd sections: Accent color; Even sections: Surface/Hero color)
           const band = document.createElement('section');
-          band.className = index % 2 === 0 ? 'feature-band band-surface' : 'feature-band band-accent';
+          band.className = index % 2 === 0 ? 'feature-band band-accent' : 'feature-band band-surface';
 
           // Inner row container (Even: Text Left / Image Right; Odd: Image Left / Text Right)
           const row = document.createElement('div');
@@ -343,6 +355,9 @@
           const textCardWrapper = document.createElement('div');
           textCardWrapper.className = 'feature-card-wrapper';
 
+          const hasHeadline = typeof sec.headline === 'string' && sec.headline.trim() !== '';
+          const labelText = (hasHeadline && sec.headline.trim()) || (sec.text ? sec.text.trim().slice(0, 40) : `Feature ${index + 1}`);
+
           // If a URL destination is provided, render glass tab as a link
           const glassTab = document.createElement(sec.url ? 'a' : 'div');
           glassTab.className = 'spotlight-card feature-glass-tab';
@@ -351,18 +366,20 @@
             glassTab.href = sec.url;
             glassTab.target = '_blank';
             glassTab.rel = 'noopener noreferrer';
-            glassTab.setAttribute('aria-label', `${sec.headline || 'Feature'} - View details`);
+            glassTab.setAttribute('aria-label', `${labelText} - View details`);
           }
 
-          const headline = document.createElement('h2');
-          headline.className = 'feature-headline';
-          headline.textContent = sec.headline || `Feature ${index + 1}`;
+          if (hasHeadline) {
+            const headline = document.createElement('h2');
+            headline.className = 'feature-headline';
+            headline.textContent = formatText(sec.headline);
+            glassTab.appendChild(headline);
+          }
 
           const desc = document.createElement('p');
           desc.className = 'feature-desc';
-          desc.textContent = sec.text || '';
+          desc.textContent = formatText(sec.text || '');
 
-          glassTab.appendChild(headline);
           glassTab.appendChild(desc);
           textCardWrapper.appendChild(glassTab);
 
@@ -377,13 +394,13 @@
             imgContainer.href = sec.url;
             imgContainer.target = '_blank';
             imgContainer.rel = 'noopener noreferrer';
-            imgContainer.setAttribute('aria-label', `${sec.headline || 'Feature'} - View screenshot destination`);
+            imgContainer.setAttribute('aria-label', `${labelText} - View screenshot destination`);
           }
 
           const img = document.createElement('img');
           img.className = 'feature-img';
           img.src = sec.image || 'images/screenshot_1.png';
-          img.alt = sec.headline || 'Feature screenshot';
+          img.alt = labelText;
           img.loading = 'lazy';
           img.decoding = 'async';
 
@@ -425,7 +442,7 @@
       const footerEl = document.getElementById('footer-copyright');
       if (footerEl) {
         const isBlank = config.footer.copyright.trim() === '';
-        footerEl.textContent = isBlank ? '' : config.footer.copyright;
+        footerEl.textContent = isBlank ? '' : formatText(config.footer.copyright);
         footerEl.style.display = isBlank ? 'none' : '';
       }
     }
@@ -657,11 +674,53 @@
     }
   }
 
+  // ---------------------------------------------------------------------------
+  // 6. Splash Screen Dismissal (Smooth fade out once content & hero image ready)
+  // ---------------------------------------------------------------------------
+  function hideSplashScreen() {
+    const splash = document.getElementById('page-splash');
+    if (!splash) return;
+    if (!splash.classList.contains('splash-hidden')) {
+      splash.classList.add('splash-hidden');
+      setTimeout(() => {
+        if (splash && splash.parentNode) {
+          splash.parentNode.removeChild(splash);
+        }
+      }, 450);
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', async function () {
-    const config = await loadConfig();
-    renderContent(config);
-    initPhoneScrollHero();
-    initSpotlightCards();
+    // Safety timeout: Never leave user on splash screen even if connection hangs
+    const safetyTimer = setTimeout(hideSplashScreen, 1500);
+
+    try {
+      const config = await loadConfig();
+      renderContent(config);
+      initPhoneScrollHero();
+      initSpotlightCards();
+
+      const screenshotEl = document.getElementById('hero-screenshot');
+      if (screenshotEl && screenshotEl.src && !screenshotEl.complete) {
+        let dismissed = false;
+        const onReady = () => {
+          if (!dismissed) {
+            dismissed = true;
+            clearTimeout(safetyTimer);
+            requestAnimationFrame(hideSplashScreen);
+          }
+        };
+        screenshotEl.addEventListener('load', onReady, { once: true });
+        screenshotEl.addEventListener('error', onReady, { once: true });
+      } else {
+        clearTimeout(safetyTimer);
+        requestAnimationFrame(hideSplashScreen);
+      }
+    } catch (err) {
+      console.error('Initialization error:', err);
+      clearTimeout(safetyTimer);
+      hideSplashScreen();
+    }
   });
 
 })();

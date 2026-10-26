@@ -135,7 +135,9 @@ All content and styling tokens live in `content.json`:
 | `stores.showBadges` | Set to `false` to hide the App Store / Google Play section completely. |
 | `stores.showIos` | Set to `false` if your app is Android-only to hide the Apple App Store badge. |
 | `stores.heading` | Customizable heading above the store badges (defaults to "Download on Google Play" when `showIos` is `false`). |
-| `sections[]` | Growable array of feature rows. Even indices (`0, 2, ...`) use Surface bands (Text Left, Image Right); odd indices (`1, 3, ...`) use Accent bands (Image Left, Text Right). Stack vertically on mobile. |
+| `sections[]` | Growable array of feature rows. Odd sections (`1st, 3rd, ...`) use Accent bands (Text Left, Image Right); even sections (`2nd, 4th, ...`) use Surface bands (Image Left, Text Right) matching the hero background. Stack vertically on mobile. |
+| `sections[].headline` | *(Optional)* Headline for the section. If set to `""` or omitted, the headline and its spacing are eliminated so body text fills the card from the top. |
+| `sections[].text` | Description copy inside the feature's spotlight card. Supports line breaks via `\n` or `<br>`. |
 | `sections[].url` | *(Optional)* URL opened when clicking the feature's glass card or screenshot. |
 | `footer.copyright` | Copyright notice rendered in the site footer. |
 

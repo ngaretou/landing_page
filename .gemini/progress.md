@@ -27,7 +27,7 @@
    - Increased badge height to 56px with subtle elevation and hover scale.
    - Localizable heading (`stores.heading`) moved to `content.json` with fallback.
 5. **Alternating Color Bands with Inverse Text**:
-   - Feature sections now alternate between full-width **Surface bands** (`var(--bg-page)`) and **Accent bands** (`var(--accent-color)`).
+   - Feature sections alternate between full-width **Accent bands** (`var(--accent-color)`) on odd sections (1st, 3rd...) and **Surface bands** (`var(--bg-page)`) on even sections (2nd, 4th...).
    - In the accent band, text colors automatically invert to maintain high contrast in both dark and light modes.
 6. **Glass Tabs Around Text**:
    - The interactive spotlight glass cards now wrap the **text blocks** rather than the images.
@@ -63,7 +63,16 @@
    - `#phone-chassis` flattens completely to `rotateX(0deg) scale(1)` and climbs to overlap the bottom ~20% of `#hero-title` Line 1 while covering the center of Line 2 (so the headline frames the top and upper sides of the phone, matching `end.png`).
 3. **Zero-Gap Inner Bezel & Tighter App Store Badge Spacing**:
    - Moved explicit `height` and `aspect-ratio: 1170 / 2532` (plus dynamic `naturalWidth / naturalHeight` sync in `app.js`) directly onto `.phone-bezel` while `.phone-chassis` wraps it with `width: fit-content; height: fit-content; padding: 8px;`, completely eliminating the top and bottom gaps between the bezel and the hero screenshot.
-   - Added negative top margin (`margin-top: -24vh`) on `.stores-section` so the App Store & Google Play badges sit closely beneath the bottom of the hero phone at the end of the scroll.
+   - Added negative top margin (`margin-top: -24vh`) on `.stores-section` so the App Store & Google Play badges sit closely beneath the bottom of the hero phone at the end of the scroll, and restored bottom padding (`padding-bottom: 4rem` desktop / `3rem` mobile) to create a generous breathing room before the colored accent band starts.
 4. **Reliable Dynamic Palette Injection (`content.json`)**:
    - Updated `loadConfig()` in `app.js` with cache-busting (`content.json?t=${Date.now()}`, `{ cache: 'no-store' }`), deep config merging (`mergeConfig`), and an `XMLHttpRequest` fallback for local environments.
    - Synced `--accent-color: #62E647` across `:root` in `styles.css` and `DEFAULT_CONFIG` in `app.js` so the old `#0ea5e9` light blue fallback never overrides `content.json`.
+
+7. **Zero-FOUC App Splash Screen & Strict CSS Image Constraints**:
+   - Added a lightweight, fullscreen native-app launch splash screen (`.page-splash`) matching `--bg-page` with an animated spinner.
+   - Stripped hardcoded placeholder text from `index.html` (elements start blank with `:empty { display: none }` until populated by `content.json`).
+   - Added strict baseline CSS bounding to `.feature-img` (`max-width: 100%; max-height: 540px; width: auto; height: auto`) so large raw screenshots can never blow out their containers before JS finishes classification.
+   - Coordinated smooth fade out in `app.js` after `content.json` finishes DOM hydration and the hero screenshot loads (with a 2.5s safety timeout).
+   - Added `white-space: pre-line` and `formatText()` in `app.js` so both `\n` and `<br>` work seamlessly in `content.json`.
+   - Supported empty headlines (`"headline": ""`): headline element and its margin are eliminated entirely so body text begins at the very top of the glass card.
+

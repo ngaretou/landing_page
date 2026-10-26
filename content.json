@@ -1,35 +1,35 @@
 {
-  "pageTitle": "Download this app",
+  "pageTitle": "Sax ci Moom",
   "favicon": "images/favico.svg",
   "frame": {
     "_note": "This section adds the device frame around the app screenshot. You can choose between 'android', 'ios' for the type, and specify the cutout style 'pill', 'punch-hole' or 'none'.",
-    "type": "ios",
+    "type": "android",
     "cutout": "pill"
   },
   "theme": {
     "defaultTheme": "dark",
     "fonts": {
-      "_note": "To change the fonts, just replace the font names below with any Google Fonts of your choice.",
+      "_note": "To change the fonts, just replace the font names below with any Google Fonts of your choice. https://fonts.google.com/",
       "heading": "Montserrat",
       "body": "Poppins"
     },
     "palette": {
       "_note": "You can customize the color palette for your app. The primary color is used for buttons and highlights, accent color for secondary actions, and surface color for backgrounds. Try https://color.adobe.com/ to generate a palette.",
       "primary": "#4f46e5",
-      "accent": "#62E647",
+      "accent": "#facc15",
       "surface": "#090d16"
     }
   },
   "hero": {
-    "_note": "This is the hero section of your app landing page. You can customize the title, subtitle, main text, and screenshot image.",
-    "subtitle": "Your app subtitle goes here.",
-    "title": "This is the Main Title.",
-    "mainText": "This is the main text of the hero section. It can be a brief description or tagline for your app.",
+    "_note": "This is the hero section of your app landing page. You can customize the title, subtitle, main text, and screenshot image. Try to keep your screenshots under 500 KB for faster loading.",
+    "subtitle": "Soo bëgg sore ci sa digganteek Yàlla",
+    "title": "Sax ci Moom",
+    "mainText": "\"Saxleen ci man, ni ma saxe man ci sama bopp ci yeen. Ni carub reseñ tëlee meññal boppam, su saxul ci ndeyam, ni ngeen di tëlee meññ, su ngeen saxul ci man.\" <br>(Yowaan 15.4)",
     "screenshot": "images/ios_screenshot.png"
   },
   "stores": {
     "_note": "Make sure to change links below to your app links. Customize the app store badges for iOS and Android - grab the name and path for the appropriate badges from the images/ folder, i.e.'images/app store badges/Download_on_the_App_Store_Badge_FR_RGB_blk_100517.svg' for French.",
-    "heading": "Download for iOS & Android",
+    "heading": "Yebleen ngir Android",
     "showBadges": true,
     "showIos": false,
     "appStore": {
@@ -37,31 +37,24 @@
       "badge": "images/app-store-badge.svg"
     },
     "googlePlay": {
-      "url": "https://play.google.com/myapp-direct-link",
+      "url": "https://play.google.com/store/apps/details?id=llc.foundational.sax",
       "badge": "images/play-store-badge.svg"
     }
   },
-  "_note": "'sections' is the alternating rows content section of your app landing page. You can add multiple sections with headlines, text, images, and links. It will adjust to landscape or portrait images and also handle empty URLs if you want to just give info, not a link on one section.",
+  "_note": "'sections' is the alternating rows content section of your app landing page. You can add multiple sections with headlines, text, images, and links. Supports line breaks via '\\n' or '<br>'. It will adjust to landscape or portrait images and also handle empty URLs if you want to just give info, not a link on one section.",
   "sections": [
         {
-      "headline": "Real-time sync across all your devices",
-      "text": "Your notes, tasks, and habits stay in perfect synchronization. Cloud-first architecture ensures instant availability everywhere you go.",
-      "image": "images/desktop.png",
-      "url": "",
+      "headline": "Ñetti téree ngii...",
+      "text": "...yu am solo ngir dimbali nit ñi, ñu sax ci Almasi bi. Man ngeena jàng walla ngeen déglu kàddu yu neexa dégg, ak mbind mu yomba gis, ànd ak ndigal yu lay amal njariñ saa su ne.",
+      "image": "images/ios_screenshot_3books.png",
+      "url": "https://play.google.com/store/apps/details?id=llc.foundational.sax",
       "cardGlow": true
-    },
-    {
-      "headline": "Distraction-free clarity with thoughtful design",
-      "text": "Every pixel is placed with intention. Enjoy high-contrast legibility, calm color tones, and tactile responsive controls that respect your focus.",
-      "image": "images/ios_screenshot.png",
-      "url": "https://example.com/design",
-      "cardGlow": true
-    },
-    {
-      "headline": "Offline-ready with robust local persistence",
-      "text": "Stay productive even without an active internet connection. Work uninterrupted on planes, subways, or remote spots with instant local caching.",
-      "image": "images/ios_screenshot.png",
-      "url": "https://example.com/offline",
+    }, 
+     {
+      "headline": "",
+      "text": "* Soo Bëgg Sore<br>* Jigéen yi ak Yàlla<br>* Fukki nettali ak ñaar ci mbirum Mucc",
+      "image": "images/ios_screenshot_3books.png",
+      "url": "https://play.google.com/store/apps/details?id=llc.foundational.sax",
       "cardGlow": true
     }
   ],
