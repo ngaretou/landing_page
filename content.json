@@ -12,9 +12,9 @@
     }
   },
   "hero": {
-    "subtitle": "Native Mobile Experience",
-    "title": "Organize your life with effortless speed.",
-    "mainText": "Crafted with clean native interactions, instant sync, and zero distractions. Built to elevate how you work every single day.",
+    "subtitle": "Small subtitle",
+    "title": "This is the Main Title.",
+    "mainText": "A brief introduction goes here - what do you want your users to know?",
     "screenshot": "images/screenshot_1.png"
   },
   "stores": {
@@ -22,11 +22,11 @@
     "showBadges": true,
     "appStore": {
       "url": "https://apple.com",
-      "badge": "images/app-store-badge.png"
+      "badge": "images/app-store-badge.svg"
     },
     "googlePlay": {
       "url": "https://google.com",
-      "badge": "images/google-play-badge.png"
+      "badge": "images/play-store-badge.svg"
     }
   },
   "sections": [

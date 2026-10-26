@@ -133,3 +133,9 @@ All content and styling tokens live in `content.json`:
 
 Since this project is 100% static with no build step, deploy the folder directly to **GitHub Pages**, **Cloudflare Pages**, **Netlify**, **Vercel**, **Firebase Hosting**, or any static web server by uploading `index.html`, `styles.css`, `app.js`, `content.json`, and `images/`.
 
+## Thanks & Acknowledgments  
+#### Created with Gemini 3.8 Flash & Gemini 4 Argon. 
+
+#### Inspiration from: 
+* Spotlight Card by [jahed](https://21st.dev/@jahed/components/spotlight-card)
+* Phone Scroll Hero by [ruixen.ui](https://21st.dev/@ruixen.ui/components/phone-scroll-hero)
