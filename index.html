@@ -6,6 +6,9 @@
   <title>App Showcase</title>
   <meta name="description" content="">
   
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="images/favico.svg" id="favicon-link">
+  
   <!-- Preconnect to Google Fonts for zero-latency font loading -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,19 +64,20 @@
         <!-- Phone Scroll Hero Widget Container -->
         <div class="phone-scroll-stage" id="phone-scroll-stage">
           <div class="phone-perspective" id="phone-perspective">
-            <div class="phone-chassis" id="phone-chassis">
+            <div class="phone-chassis" id="phone-chassis" data-device="iphone">
               <!-- Physical Device Side Buttons -->
               <span class="phone-button button-left-top" aria-hidden="true"></span>
               <span class="phone-button button-left-bottom" aria-hidden="true"></span>
               <span class="phone-button button-right" aria-hidden="true"></span>
+              <span class="phone-button button-right-secondary" aria-hidden="true"></span>
 
               <!-- Bezel & Screen Outer Frame -->
               <div class="phone-bezel">
                 <!-- Physical glass glare reflection overlay (fades as phone stands upright) -->
                 <div class="phone-glare" id="phone-glare" aria-hidden="true"></div>
 
-                <!-- Camera Island / Dynamic Island (stays pitch black in both modes) -->
-                <div class="phone-camera-island" aria-hidden="true">
+                <!-- Camera Island / Dynamic Island / Cutout (stays pitch black in both modes) -->
+                <div class="phone-camera-cutout cutout-pill" id="phone-camera-cutout" aria-hidden="true">
                   <span class="camera-lens"></span>
                 </div>
                 

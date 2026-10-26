@@ -65,6 +65,12 @@ All content and styling tokens live in `content.json`:
 
 ```json
 {
+  "pageTitle": "App Showcase",
+  "favicon": "images/favico.svg",
+  "frame": {
+    "type": "iphone",
+    "cutout": "pill"
+  },
   "theme": {
     "defaultTheme": "dark",
     "fonts": {
@@ -86,13 +92,14 @@ All content and styling tokens live in `content.json`:
   "stores": {
     "heading": "Download for iOS & Android",
     "showBadges": true,
+    "showIos": true,
     "appStore": {
       "url": "https://apple.com",
-      "badge": "images/app-store-badge.png"
+      "badge": "images/app-store-badge.svg"
     },
     "googlePlay": {
       "url": "https://google.com",
-      "badge": "images/google-play-badge.png"
+      "badge": "images/play-store-badge.svg"
     }
   },
   "sections": [
@@ -114,15 +121,20 @@ All content and styling tokens live in `content.json`:
 
 | Path | Description |
 | :--- | :--- |
+| `pageTitle` | Page title populated to `<head><title>` in the browser tab and search engines. |
+| `favicon` | Path to the website favicon (e.g. `"images/favico.svg"`, `.png`, or `.ico`). |
+| `frame.type` | Device chassis style: `"iphone"` (squircle corners, split side buttons) or `"android"` (sleeker radius, right-side power & volume buttons). |
+| `frame.cutout` | Camera cutout overlay: `"pill"` (Apple Dynamic Island), `"punch-hole"` (Android centered camera pin), or `"none"` (clean screen with no cutout overlay). |
 | `theme.defaultTheme` | Initial theme before user toggle (`"dark"` or `"light"`). |
 | `theme.fonts.heading` | Google Font family name for `h1`–`h4` headings (default: `"Outfit"`). |
 | `theme.fonts.body` | Google Font family name for body text (default: `"Poppins"`). |
 | `theme.palette.primary` | Hex color for the hero subtitle kicker and spotlight glow tint. |
 | `theme.palette.accent` | Hex color for alternating feature section bands (`.band-accent`). |
 | `theme.palette.surface` | Hex color for the dark-mode page background (`--bg-page`). |
-| `hero.*` | `subtitle`, `title` (also updates `<title>`), `mainText`, and `screenshot` path inside the 3D phone. |
-| `stores.showBadges` | Set to `false` to hide the App Store / Google Play section. |
-| `stores.heading` | Customizable heading above the store badges. |
+| `hero.*` | `subtitle`, `title` (fallback for `<title>` if `pageTitle` omitted), `mainText`, and `screenshot` path inside the 3D phone. |
+| `stores.showBadges` | Set to `false` to hide the App Store / Google Play section completely. |
+| `stores.showIos` | Set to `false` if your app is Android-only to hide the Apple App Store badge. |
+| `stores.heading` | Customizable heading above the store badges (defaults to "Download on Google Play" when `showIos` is `false`). |
 | `sections[]` | Growable array of feature rows. Even indices (`0, 2, ...`) use Surface bands (Text Left, Image Right); odd indices (`1, 3, ...`) use Accent bands (Image Left, Text Right). Stack vertically on mobile. |
 | `sections[].url` | *(Optional)* URL opened when clicking the feature's glass card or screenshot. |
 | `footer.copyright` | Copyright notice rendered in the site footer. |

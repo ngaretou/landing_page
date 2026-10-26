@@ -219,6 +219,14 @@ a {
   line-height: 1.55;
 }
 
+.hero-subtitle:empty,
+.hero-title:empty,
+.hero-main-text:empty,
+.stores-heading:empty,
+.copyright-text:empty {
+  display: none;
+}
+
 /* 3D Phone Scroll Container - Sits below text at start.png, climbs over text at end.png */
 .phone-scroll-stage {
   position: relative;
@@ -280,6 +288,40 @@ a {
   height: 52px;
 }
 
+.button-right-secondary {
+  display: none;
+}
+
+/* Device chassis variants (Android: sleeker radii & right-side buttons) */
+.phone-chassis[data-device="android"] {
+  border-radius: 28px;
+}
+
+.phone-chassis[data-device="android"] .phone-bezel {
+  border-radius: 22px;
+}
+
+.phone-chassis[data-device="android"] .phone-glare {
+  border-radius: 22px;
+}
+
+.phone-chassis[data-device="android"] .button-left-top,
+.phone-chassis[data-device="android"] .button-left-bottom {
+  display: none;
+}
+
+.phone-chassis[data-device="android"] .button-right {
+  top: 20%;
+  height: 32px;
+}
+
+.phone-chassis[data-device="android"] .button-right-secondary {
+  display: block;
+  right: -4.5px;
+  top: 28%;
+  height: 58px;
+}
+
 /* Device screen inner bezel - aspect-ratio applied directly here so screenshot fits 1:1 with zero top/bottom gaps */
 .phone-bezel {
   position: relative;
@@ -304,30 +346,62 @@ a {
   transition: opacity 0.08s ease-out;
 }
 
-/* Camera island (always pitch black, mirroring physical glass hole) */
+/* Camera Cutouts (always pitch black, mirroring physical glass hole) */
+.phone-camera-cutout,
 .phone-camera-island {
   position: absolute;
-  top: 8px;
   left: 50%;
   transform: translateX(-50%);
+  background-color: #000000;
+  z-index: 20;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Pill (iPhone Dynamic Island) */
+.phone-camera-cutout.cutout-pill,
+.phone-camera-island {
+  top: 8px;
   width: 76px;
   height: 20px;
-  background-color: #000000;
   border-radius: 12px;
-  z-index: 20;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   padding-right: 10px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-.camera-lens {
+.phone-camera-cutout.cutout-pill .camera-lens,
+.phone-camera-island .camera-lens {
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: radial-gradient(circle at 30% 30%, #334155, #000);
   border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Punch-hole (Android Centered Camera Pin) */
+.phone-camera-cutout.cutout-punch-hole {
+  top: 10px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 0;
+}
+
+.phone-camera-cutout.cutout-punch-hole .camera-lens {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #38bdf8, #000);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+/* None (Clean bezel with no camera cutout overlay) */
+.phone-camera-cutout.cutout-none {
+  display: none !important;
 }
 
 /* Screen container & screenshot image - Flush edge-to-edge inside bezel with zero top/bottom gaps */
@@ -356,7 +430,8 @@ a {
   position: relative;
   z-index: 20;
   margin-top: -24vh; /* Pulls store badges up close beneath the hero phone at end of scroll */
-  padding: 0 1.5rem 3.5rem;
+  margin-bottom: 0;
+  padding: 0 1.5rem 0;
   text-align: center;
   background-color: transparent;
   border: none;
@@ -618,7 +693,7 @@ a.feature-glass-tab {
    -------------------------------------------------------------------------- */
 .site-footer {
   border-top: 1px solid var(--card-border);
-  padding: 3.5rem 1.5rem;
+  padding: 1.5rem 1.5rem; /* 24px vertical spacing */
   text-align: center;
   background-color: var(--bg-page);
   transition: var(--transition-theme);
@@ -654,6 +729,10 @@ a.feature-glass-tab {
     padding: 7px;
   }
 
+  .phone-chassis[data-device="android"] {
+    border-radius: 24px;
+  }
+
   .phone-bezel {
     height: clamp(386px, 62vh, 586px);
     width: auto;
@@ -661,9 +740,15 @@ a.feature-glass-tab {
     border-radius: 29px;
   }
 
+  .phone-chassis[data-device="android"] .phone-bezel,
+  .phone-chassis[data-device="android"] .phone-glare {
+    border-radius: 18px;
+  }
+
   .stores-section {
     margin-top: -22vh;
-    padding: 0 1.25rem 3rem;
+    margin-bottom: 0;
+    padding: 0 1.25rem 0;
   }
 
   .feature-band {

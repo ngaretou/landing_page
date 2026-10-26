@@ -12,6 +12,12 @@
   // 1. Fallback Configuration (Ensures page renders even if fetch fails/offline)
   // ---------------------------------------------------------------------------
   const DEFAULT_CONFIG = {
+    pageTitle: "App Showcase",
+    favicon: "images/favico.svg",
+    frame: {
+      type: "iphone",
+      cutout: "pill"
+    },
     theme: {
       defaultTheme: "dark",
       fonts: {
@@ -33,13 +39,15 @@
     stores: {
       heading: "Download for iOS & Android",
       showBadges: true,
+      showIos: true,
+      showAndroid: true,
       appStore: {
         url: "https://apple.com",
-        badge: "images/app-store-badge.png"
+        badge: "images/app-store-badge.svg"
       },
       googlePlay: {
         url: "https://google.com",
-        badge: "images/google-play-badge.png"
+        badge: "images/play-store-badge.svg"
       }
     },
     sections: [
@@ -163,7 +171,77 @@
   // 4. Content Hydration from JSON
   // ---------------------------------------------------------------------------
   function renderContent(config) {
-    // 4.1 Apply typography and palette
+    // 4.0 Page Title in <head><title> & Favicon
+    const pageTitle = (config && config.pageTitle) ? config.pageTitle : (config && config.hero && config.hero.title);
+    if (pageTitle) {
+      document.title = pageTitle;
+    }
+
+    if (config && config.favicon) {
+      let favLink = document.getElementById('favicon-link');
+      if (!favLink) {
+        favLink = document.querySelector("link[rel*='icon']");
+      }
+      if (!favLink) {
+        favLink = document.createElement('link');
+        favLink.rel = 'icon';
+        favLink.id = 'favicon-link';
+        document.head.appendChild(favLink);
+      }
+      favLink.href = config.favicon;
+      if (config.favicon.endsWith('.svg')) {
+        favLink.type = 'image/svg+xml';
+      } else if (config.favicon.endsWith('.png')) {
+        favLink.type = 'image/png';
+      } else if (config.favicon.endsWith('.ico')) {
+        favLink.type = 'image/x-icon';
+      }
+    }
+
+    // 4.1 Device Frame & Camera Cutout (iPhone vs Android, Cutout: pill | punch-hole | none)
+    const frameConfig = (config && config.frame) || {};
+    const rawDeviceType = frameConfig.type || (frameConfig.iphone === false ? 'android' : 'iphone');
+    const deviceType = String(rawDeviceType).toLowerCase().trim() === 'android' ? 'android' : 'iphone';
+
+    let cutoutSetting = frameConfig.cutout;
+    if (cutoutSetting === undefined && frameConfig.dynamicIsland !== undefined) {
+      cutoutSetting = (frameConfig.dynamicIsland === false || frameConfig.dynamicIsland === 'no') ? 'none' : 'pill';
+    }
+
+    let cutoutType;
+    if (cutoutSetting === false || cutoutSetting === 'false' || cutoutSetting === 'none' || cutoutSetting === 'no') {
+      cutoutType = 'none';
+    } else if (cutoutSetting === 'punch-hole' || cutoutSetting === 'hole-punch' || cutoutSetting === 'dot') {
+      cutoutType = 'punch-hole';
+    } else if (cutoutSetting === 'pill' || cutoutSetting === 'dynamic-island') {
+      cutoutType = 'pill';
+    } else if (cutoutSetting === true || cutoutSetting === 'true' || cutoutSetting === 'yes') {
+      cutoutType = deviceType === 'android' ? 'punch-hole' : 'pill';
+    } else {
+      cutoutType = deviceType === 'android' ? 'punch-hole' : 'pill';
+    }
+
+    const chassisEl = document.getElementById('phone-chassis');
+    if (chassisEl) {
+      chassisEl.setAttribute('data-device', deviceType);
+    }
+
+    const cutoutEl = document.getElementById('phone-camera-cutout');
+    if (cutoutEl) {
+      cutoutEl.className = 'phone-camera-cutout';
+      if (cutoutType === 'none') {
+        cutoutEl.classList.add('cutout-none');
+        cutoutEl.style.display = 'none';
+      } else if (cutoutType === 'punch-hole') {
+        cutoutEl.classList.add('cutout-punch-hole');
+        cutoutEl.style.display = '';
+      } else {
+        cutoutEl.classList.add('cutout-pill');
+        cutoutEl.style.display = '';
+      }
+    }
+
+    // 4.2 Apply typography and palette
     if (config.theme) {
       applyFonts(config.theme.fonts);
       applyPalette(config.theme.palette);
@@ -176,17 +254,24 @@
       const titleEl = document.getElementById('hero-title');
       const mainTextEl = document.getElementById('hero-main-text');
       const screenshotEl = document.getElementById('hero-screenshot');
-      const brandEl = document.getElementById('brand-title');
 
-      if (subtitleEl && config.hero.subtitle) subtitleEl.textContent = config.hero.subtitle;
-      if (titleEl && config.hero.title) titleEl.textContent = config.hero.title;
-      if (mainTextEl && config.hero.mainText) mainTextEl.textContent = config.hero.mainText;
+      if (subtitleEl && typeof config.hero.subtitle === 'string') {
+        const isBlank = config.hero.subtitle.trim() === '';
+        subtitleEl.textContent = isBlank ? '' : config.hero.subtitle;
+        subtitleEl.style.display = isBlank ? 'none' : '';
+      }
+      if (titleEl && typeof config.hero.title === 'string') {
+        const isBlank = config.hero.title.trim() === '';
+        titleEl.textContent = isBlank ? '' : config.hero.title;
+        titleEl.style.display = isBlank ? 'none' : '';
+      }
+      if (mainTextEl && typeof config.hero.mainText === 'string') {
+        const isBlank = config.hero.mainText.trim() === '';
+        mainTextEl.textContent = isBlank ? '' : config.hero.mainText;
+        mainTextEl.style.display = isBlank ? 'none' : '';
+      }
       if (screenshotEl && config.hero.screenshot && screenshotEl.getAttribute('src') !== config.hero.screenshot) {
         screenshotEl.src = config.hero.screenshot;
-      }
-      if (brandEl && config.hero.title) {
-        // Update document title for SEO & clean tab name
-        document.title = config.hero.title;
       }
     }
 
@@ -194,7 +279,11 @@
     if (config.stores) {
       const storesSection = document.getElementById('stores-section');
       if (storesSection) {
-        if (config.stores.showBadges === false) {
+        const showBadges = config.stores.showBadges !== false && config.stores.showBadges !== 'false' && config.stores.showBadges !== 'no';
+        const showIos = config.stores.showIos !== false && config.stores.showIos !== 'false' && config.stores.showIos !== 'no';
+        const showAndroid = config.stores.showAndroid !== false && config.stores.showAndroid !== 'false' && config.stores.showAndroid !== 'no';
+
+        if (!showBadges || (!showIos && !showAndroid)) {
           storesSection.style.display = 'none';
         } else {
           storesSection.style.display = 'block';
@@ -202,19 +291,32 @@
           // Localizable heading for App Store section
           const headingEl = document.getElementById('stores-heading');
           if (headingEl) {
-            headingEl.textContent = config.stores.heading || "Download for iOS & Android";
+            if (typeof config.stores.heading === 'string') {
+              const isBlank = config.stores.heading.trim() === '';
+              headingEl.textContent = isBlank ? '' : config.stores.heading;
+              headingEl.style.display = isBlank ? 'none' : '';
+            } else {
+              headingEl.textContent = !showIos ? "Download on Google Play" : (!showAndroid ? "Download on the App Store" : "Download for iOS & Android");
+              headingEl.style.display = '';
+            }
           }
 
           const appStoreLink = document.getElementById('app-store-link');
           const appStoreImg = document.getElementById('app-store-badge-img');
-          if (config.stores.appStore) {
+          if (appStoreLink) {
+            appStoreLink.style.display = showIos ? '' : 'none';
+          }
+          if (showIos && config.stores.appStore) {
             if (appStoreLink && config.stores.appStore.url) appStoreLink.href = config.stores.appStore.url;
             if (appStoreImg && config.stores.appStore.badge) appStoreImg.src = config.stores.appStore.badge;
           }
 
           const googlePlayLink = document.getElementById('google-play-link');
           const googlePlayImg = document.getElementById('google-play-badge-img');
-          if (config.stores.googlePlay) {
+          if (googlePlayLink) {
+            googlePlayLink.style.display = showAndroid ? '' : 'none';
+          }
+          if (showAndroid && config.stores.googlePlay) {
             if (googlePlayLink && config.stores.googlePlay.url) googlePlayLink.href = config.stores.googlePlay.url;
             if (googlePlayImg && config.stores.googlePlay.badge) googlePlayImg.src = config.stores.googlePlay.badge;
           }
@@ -319,9 +421,13 @@
     }
 
     // 4.5 Footer
-    if (config.footer && config.footer.copyright) {
+    if (config.footer && typeof config.footer.copyright === 'string') {
       const footerEl = document.getElementById('footer-copyright');
-      if (footerEl) footerEl.textContent = config.footer.copyright;
+      if (footerEl) {
+        const isBlank = config.footer.copyright.trim() === '';
+        footerEl.textContent = isBlank ? '' : config.footer.copyright;
+        footerEl.style.display = isBlank ? 'none' : '';
+      }
     }
   }
 
@@ -496,6 +602,9 @@
         defaults.theme && defaults.theme.palette,
         overrides.theme && overrides.theme.palette
       );
+    }
+    if (defaults.frame || overrides.frame) {
+      merged.frame = Object.assign({}, defaults.frame, overrides.frame || {});
     }
     if (defaults.hero || overrides.hero) {
       merged.hero = Object.assign({}, defaults.hero, overrides.hero || {});
